@@ -1,2 +1,2 @@
 # Snacker
-University Project: Advanced Mobile Applications
+University Project: Advanced Mobile Applications :)
