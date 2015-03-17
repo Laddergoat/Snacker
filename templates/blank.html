@@ -1,0 +1,11 @@
+{% extends "templates/base.html" %}
+
+{%  block mainCont %}
+<form method="post">
+    <input type="textarea" name="post" />
+    <input type="submit" />
+</form>
+{% for comments in comments %}
+    <p>{{comments.content}}</p>
+{% endfor %}
+{% endblock %}

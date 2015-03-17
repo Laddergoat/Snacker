@@ -3,21 +3,20 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
-    <link href="/static/style.css" rel="stylesheet" type="text/css">
+    <link href="#" rel="stylesheet" type="text/css">
 </head>
 <body>
     <div id="wrapper">
         <header>
-            <% print greeting %>
             <div id="logo"><a>Snacker</a></div>
         </header>
             {% block mainCont %}
 
             {% endblock %}
         <footer>
-            <div id="home"><a href="#"><img class="icon" src="/static/images/home.png"></a></div>
-            <div id="refresh"><a href="#"><img class="icon" src="/static/images/refresh.png"></a></div>
-            <div id="capture"><a href="#"><img class="icon" src="/static/images/capture.png"></a></div>
+            <div id="home"><a href="/"><img class="icon" src="/static/images/home.png"></a></div>
+            <div id="refresh"><a href=""><img class="icon" src="/static/images/refresh.png"></a></div>
+            <div id="capture"><a href="/blank"><img class="icon" src="/static/images/capture.png"></a></div>
         </footer>
     </div>
 </body>
