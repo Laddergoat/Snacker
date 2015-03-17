@@ -1,18 +1,19 @@
-@font-face {
-    font-family: lasenter;
-    src: url("LasEnter.otf") format("opentype");
-}
-
 body{
     background-color: lightgrey;
     padding: 0;
     margin:0;
     font-family: sans-serif;
+    font-size: 42px;
+}
+
+input{
+    font-size: 42px;
 }
 
 #wrapper{
     width: 95%;
-    margin: auto;
+    margin: 145px auto;
+
 }
 header, footer{
     background-color: darkgray;
