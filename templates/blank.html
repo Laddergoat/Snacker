@@ -3,16 +3,16 @@
 {%  block mainCont %}
 <form method="post" action="{{upload_url}}" enctype="multipart/form-data">
     <input type="file" name="file">
-    <input type="submit" />
+    <input type="submit"/>
 </form>
 
 <form method="post">
-    <input type="textarea" name="post" />
-    <input type="submit" />
+    <input type="textarea" name="post"/>
+    <input type="submit"/>
 </form>
 <div id="comments">
-{% for comments in comments %}
+    {% for comments in comments %}
     <p>{{comments.content}}</p>
-{% endfor %}
+    {% endfor %}
 </div>
 {% endblock %}
