@@ -25,6 +25,10 @@ class Comment(ndb.Model):
 class HomePage(webapp2.RequestHandler):
     def get(self):
         user = users.get_current_user()
+        upload_url = blobstore.create_upload_url('/upload')
+        template_values={
+            "upload_url": upload_url
+        }
         if user:
             greeting = ('Welcome, %s! (<a href="%s">sign out</a>)' %
                         (user.nickname(), users.create_logout_url('/')))
@@ -32,18 +36,18 @@ class HomePage(webapp2.RequestHandler):
             self.redirect(users.create_login_url('/'))
 
         template = jinja_environment.get_template('templates/index.html')
-        self.response.write(template.render())
+        self.response.write(template.render(template_values))
 
 
 class BlankPage(webapp2.RequestHandler):
     def get(self):
-        upload_url = blobstore.create_upload_url('/upload')
+
         qry = Comment.query(Comment.commentId == 1)
         comments = qry.fetch()
         # Variables that should be accessible to the template
         template_values = {
             "comments": comments,
-            "upload_url": upload_url
+
         }
         template = jinja_environment.get_template('templates/blank.html')
         # Post Template and assign values that are required
@@ -68,9 +72,15 @@ class ServeHandler(blobstore_handlers.BlobstoreDownloadHandler):
         self.send_blob(blob_info)
 
 
+class UserHandler(webapp2.RequestHandler):
+    def get(self):
+        template = jinja_environment.get_template('templates/user.html')
+        self.response.write(template.render())
+
 app = webapp2.WSGIApplication([
     ('/', HomePage),
     ('/blank', BlankPage),
     ('/upload', UploadHandler),
-    ('/serve/([^/]+)?', ServeHandler)],
+    ('/serve/([^/]+)?', ServeHandler),
+    ('/user', UserHandler)],
     debug=True)

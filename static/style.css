@@ -24,3 +24,7 @@
 #content img{
     width: 98%;
 }
+
+#imgHide{
+    visibility: collapse;
+}
