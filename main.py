@@ -29,11 +29,10 @@ class HomePage(webapp2.RequestHandler):
             greeting = ('Welcome, %s! (<a href="%s">sign out</a>)' %
                         (user.nickname(), users.create_logout_url('/')))
         else:
-            greeting = ('<a href="%s">Sign in or register</a>.' %
-                        users.create_login_url('/'))
+            self.redirect(users.create_login_url('/'))
+
         template = jinja_environment.get_template('templates/index.html')
         self.response.write(template.render())
-        self.response.write(greeting)
 
 
 class BlankPage(webapp2.RequestHandler):

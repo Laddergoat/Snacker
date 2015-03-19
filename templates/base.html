@@ -3,21 +3,60 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
-    <link href="" rel="stylesheet" type="text/css">
+    <link href="/static/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+    <script src="/static/jquery-1.11.2.js"></script>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <link href="/static/style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <div id="wrapper">
-    <header>
-        <div id="logo"><a>Snacker</a></div>
-    </header>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                </button>
+                <a class="navbar-brand" href="#">Snacker</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <form class="navbar-form navbar-left" role="search">
+
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Familien skal i skoven">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+      </span>
+                    </div>
+                    <!-- /input-group -->
+
+                </form>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    <div id="content">
     {% block mainCont %}
 
     {% endblock %}
-    <footer>
-        <div id="home"><a href="/"><img class="icon" src="/static/images/home.png"></a></div>
-        <div id="refresh"><a href=""><img class="icon" src="/static/images/refresh.png"></a></div>
-        <div id="capture"><a href="/blank"><img class="icon" src="/static/images/capture.png"></a></div>
-    </footer>
+        </div>
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+        <div role="group" class="btn-group-lg btn-group-justified">
+
+            <a href="#" class="btn btn-lg" role="button"><span class="glyphicon glyphicon-home"
+                                                                    aria-hidden="true"></span></a>
+            <a href="/blank" class="btn btn-lg" role="button"><span class="glyphicon glyphicon-camera"
+                                                                    aria-hidden="true"></span></a>
+            <a href="#" class="btn btn-lg" role="button"><span class="glyphicon glyphicon-user"
+                                                                    aria-hidden="true"></span></a>
+        </div>
+    </nav>
 </div>
 </body>
 </html>
