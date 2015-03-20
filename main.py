@@ -55,7 +55,6 @@ class HomePage(webapp2.RequestHandler):
             else:
                 u = User(email=currentuser.email(), name=currentuser.nickname(), userEnd=users.get_current_user())
                 u.put()
-
         else:
             greeting = "<a href='%s'>Log In </a>" % users.create_login_url('/')
         template_values = {
@@ -133,12 +132,16 @@ class UserHandler(webapp2.RequestHandler):
         template = jinja_environment.get_template('templates/user.html')
         self.response.write(template.render(template_values))
 
-
+class CaptureHandler(webapp2.RequestHandler):
+    def get(self):
+        template = jinja_environment.get_template('templates/capture.html')
+        self.response.write(template.render())
 
 app = webapp2.WSGIApplication([
     ('/', HomePage),
     ('/blank', BlankPage),
     ('/upload', UploadHandler),
     ('/serve/([^/]+)?', ServeHandler),
+    ('/capture', CaptureHandler),
     ('/([^/]+)?', UserHandler)],
     debug=True)
