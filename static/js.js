@@ -7,6 +7,6 @@ $( document ).ready(function() {
 
 
     $("#imgHide").change(function(){
-        alert("This input field has lost its focus.");
+
     });
 });

@@ -1,18 +1,18 @@
 {% extends "templates/base.html" %}
 
 {%  block mainCont %}
-<form method="post" action="{{upload_url}}" enctype="multipart/form-data">
+<!--<form method="post" action="{{upload_url}}" enctype="multipart/form-data">
     <input type="file" >
     <input type="submit"/>
-</form>
+</form>-->
 
 <form method="post">
     <input type="textarea" name="post"/>
     <input type="submit"/>
 </form>
 <div id="comments">
-    {% for comments in comments %}
-    <p>{{comments.content}}</p>
+    {% for comment in comment %}
+    <p>{{comment.content}}</p>
     {% endfor %}
 </div>
 {% endblock %}

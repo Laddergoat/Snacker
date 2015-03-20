@@ -23,7 +23,7 @@
                         data-target="#bs-example-navbar-collapse-1">
                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                 </button>
-                <a class="navbar-brand" href="#">Snacker</a>
+                <a class="navbar-brand" href="#">{{currentUser}}</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -55,17 +55,17 @@
             <a href="/" class="btn btn-lg" role="button"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a>
             <a href="capture.html" class="btn btn-lg" role="button"><span class="glyphicon glyphicon-camera" aria-hidden="true"></span></a>
             <a id="imgUpload" class="btn btn-lg" role="button" type="file">
-                <span class="glyphicon glyphicon-home" aria-hidden="true">
+                <span class="glyphicon glyphicon-camera" aria-hidden="true">
 
                 </span>
             </a>
-            <a href="/user" class="btn btn-lg" role="button"><span class="glyphicon glyphicon-user" aria-hidden="true"</span></a>
+            <a href="{{username}}" class="btn btn-lg" role="button"><span class="glyphicon glyphicon-user" aria-hidden="true"</span></a>
         </div>
 
     </nav>
 </div>
         <form method="post" action="{{upload_url}}" enctype="multipart/form-data">
-            <input type="file" id="imgHide" onchange="this.form.submit()" name="file"/>
+            <input type="file" id="imgHide" onchange="this.form.submit()" accept="image/gif, image/jpeg" name="file"/>
         </form>
 </body>
 </html>

@@ -1,5 +1,8 @@
 {% extends "templates/base.html" %}
 
 {%  block mainCont %}
-<p>TEST!</p>
+{% for user in user %}
+    <p>{{user.email}}</p>
+    <p>{{user.name}}</p>
+{% endfor %}
 {% endblock %}
