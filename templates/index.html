@@ -1,0 +1,9 @@
+{% extends "templates/base.html" %}
+
+{%  block mainCont %}
+    {% for images in images %}
+        <img src="/serve/{{images.url}}"/>
+        <p>{{images.uploader}}</p>
+    {% endfor %}
+
+{% endblock %}

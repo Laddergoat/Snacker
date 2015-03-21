@@ -1,0 +1,42 @@
+#wrapper {
+    width: 95%;
+    margin: 70px auto;
+}
+.navbar-default .navbar-collapse, .navbar-default .navbar-form{
+    border: none;
+}
+#home{
+    float: left;
+    margin-left: 10px;
+}
+#capture{
+    margin:auto;
+}
+#user{
+    margin-right: 10px;
+    float: right;
+}
+.navbar-brand{
+    font-family: 'Lobster', cursive;
+    font-size: 30px;
+    text-indent: 30px;
+}
+#content img{
+    width: 98%;
+}
+
+#imgHide{
+    visibility: collapse;
+}
+
+.navbar{
+    min-height: 60px;
+}
+
+.form-control{
+    height:50px;
+}
+
+.glyphicon{
+    font-size: 31px;
+}
