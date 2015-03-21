@@ -5,17 +5,7 @@
 .navbar-default .navbar-collapse, .navbar-default .navbar-form{
     border: none;
 }
-#home{
-    float: left;
-    margin-left: 10px;
-}
-#capture{
-    margin:auto;
-}
-#user{
-    margin-right: 10px;
-    float: right;
-}
+
 .navbar-brand{
     font-family: 'Lobster', cursive;
     font-size: 30px;
