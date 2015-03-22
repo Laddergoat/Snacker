@@ -4,6 +4,8 @@
       <w>currentuser</w>
       <w>currentusername</w>
       <w>endfor</w>
+      <w>fetchresult</w>
+      <w>getcurrentuser</w>
       <w>jinja</w>
     </words>
   </dictionary>

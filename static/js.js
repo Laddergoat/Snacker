@@ -9,4 +9,9 @@ $( document ).ready(function() {
     $("#imgHide").change(function(){
 
     });
+
+    function myFunction() {
+    location.reload();
+
+    }
 });

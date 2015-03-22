@@ -1,8 +1,12 @@
 {% extends "templates/base.html" %}
 
 {%  block mainCont %}
-    {% for images in images %}
-        <img src="/serve/{{images.url}}"/>
-        <p>{{images.uploader}}</p>
-    {% endfor %}
+{% for images in images %}
+        <div class="col-lg-4 col-sm-6 col-xs-12">
+            <img src="/serve/{{images.blob_key}}"/>
+            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vehicula efficitur ipsum, ut posuere massa laoreet non. Sed a justo dapibus, dictum nunc eu, tincidunt
+                libero. Proin accumsan libero eleifend, tincidunt velit nec, gravida dui. Donec pharetra sodales lectus, suscipit egestas libero euismod quis. Quisque sed leo felis.                     Aeneansed consequat neque, sed vestibulum nunc. Cras porttitor cursus libero, quis maximus est mattis ac.
+            </p>
+        </div>
+{% endfor %}
 {% endblock %}

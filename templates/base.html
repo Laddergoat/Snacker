@@ -1,76 +1,83 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
     <title></title>
+
+
+    <script src="/static/jquery-1.11.2.js"></script>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/js.js"></script>
     <link href="/static/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
     <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
-
     <link href="/static/capture.css" rel="stylesheet" type="text/css">
-    <script src="/static/jquery-1.11.2.js"></script>
-    <script src="/static/js.js"></script>
-    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
     <link href="/static/style.css" rel="stylesheet" type="text/css">
+
 </head>
+
 <body>
+
 <div id="wrapper">
 
     <nav class="navbar navbar-default navbar-fixed-top">
-
         <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                        data-target="#bs-example-navbar-collapse-1">
-
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                 </button>
-                <a class="navbar-brand" href="#">Snacker</a>
-                {{ logout }}
+                <a class="navbar-brand" href="/">Snacker</a>
             </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <form class="navbar-form navbar-left" role="search">
-
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Familien skal i skoven">
-      <span class="input-group-btn">
-        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-      </span>
-                    </div>
-                    <!-- /input-group -->
-
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        {{log}}
+                    </li>
+                    <form class="navbar-form navbar-left" role="search">
+                        <li>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Familien skal i skoven">
+                            <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                            </button>
+                            </span>
+                        </div>
+                        </li>
                 </form>
+                </ul>
             </div>
-            <!-- /.navbar-collapse -->
         </div>
-        <!-- /.container-fluid -->
     </nav>
+
     <div id="content">
     {% block mainCont %}
 
     {% endblock %}
-        </div>
-    <nav class="navbar navbar-default navbar-fixed-bottom">
-        <div role="group" class="btn-group-lg btn-group-justified">
 
+    </div>
+
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+        {% if currentuser%}
+        <div role="group" class="btn-group-lg btn-group-justified">
             <a href="/" class="btn btn-lg" role="button"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a>
             <a href="/capture" class="btn btn-lg" role="button"><span class="glyphicon glyphicon-camera" aria-hidden="true"></span></a>
             <a id="imgUpload" class="btn btn-lg" role="button" type="file">
-                <span class="glyphicon glyphicon-picture" aria-hidden="true">
-
-                </span>
+                <span class="glyphicon glyphicon-picture" aria-hidden="true"></span>
             </a>
             <a href="{{username}}" class="btn btn-lg" role="button"><span class="glyphicon glyphicon-user" aria-hidden="true"</span></a>
         </div>
-
+        {% endif %}
     </nav>
-</div>
-        <form method="post" action="{{upload_url}}" enctype="multipart/form-data">
-            <input type="file" id="imgHide" onchange="this.form.submit()" accept="image/gif, image/jpeg" name="file"/>
-        </form>
+
+
+    <form method="post" action="{{upload_url}}" enctype="multipart/form-data">
+        <input type="file" id="imgHide" onchange="this.form.submit()" accept="image/gif, image/jpeg" name="file"/>
+    </form>
+
 </body>
+
 </html>
