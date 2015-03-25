@@ -1,8 +1,25 @@
 {% extends "templates/base.html" %}
 
+{% block title %}{{user.name}}{% endblock %}
 {%  block mainCont %}
 {% for user in user %}
-    <p>{{user.email}}</p>
     <p>{{user.name}}</p>
+    <p>{{check.user_id}}</p>
 {% endfor %}
+        {% if check %}
+        {% if checkid == userid %}
+
+        <p>{{userid}}</p>
+        <p>{{check.user_id}}</p>
+        <form method="post" >
+            <input type="text" name="name" placeholder="{{user.name}}">
+            <input type="submit" value="updatename">
+        </form>
+        {% endif %}
+        {% endif %}
+    <div>
+        {% for image in image %}
+        <img src="/thumb/{{image.blob_key}}"/>
+        {% endfor %}
+    </div>
 {% endblock %}

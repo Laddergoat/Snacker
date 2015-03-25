@@ -2,8 +2,12 @@ import os
 import jinja2
 import urllib
 import webapp2
-from uuid import uuid4
+import cgi
 
+
+from PIL import Image
+from uuid import uuid4
+from google.appengine.api import images
 from google.appengine.ext import ndb
 from google.appengine.api import users
 from google.appengine.ext import blobstore
@@ -20,7 +24,6 @@ class User(ndb.Model):
     description = ndb.StringProperty()
     joined = ndb.DateTimeProperty(auto_now_add=True, indexed=False)
 
-
     @staticmethod
     def getcurrentuser():
         currentuser = users.get_current_user()
@@ -34,7 +37,7 @@ class User(ndb.Model):
             return False
 
 
-class Image(ndb.Model):
+class Photo(ndb.Model):
     blob_key = ndb.BlobKeyProperty()
     user = ndb.StringProperty(required=True)
     tags = ndb.StringProperty(repeated=True)
@@ -48,14 +51,14 @@ class Follower(ndb.Model):
 
 
 class Likes(ndb.Model):
-    image_key = ndb.StringProperty()
+    photo_key = ndb.StringProperty()
     user = ndb.StringProperty()
 
 
 class HomePage(webapp2.RequestHandler):
     def get(self):
         currentuser = users.get_current_user()
-        currentusername = User().getcurrentuser()
+        username = User().getcurrentuser()
         upload_url = blobstore.create_upload_url('/upload')
 
         if currentuser:
@@ -73,84 +76,130 @@ class HomePage(webapp2.RequestHandler):
         else:
             greeting = "<a href='%s'>Log In </a>" % users.create_login_url('/')
 
-        qry = Image.query().order(-Image.uploaded)
-        images = qry.fetch(10)
+        qry = Photo.query().order(-Photo.uploaded)
+        photo = qry.fetch(10)
 
         template_values = {
             "upload_url": upload_url,
-            "currentuser": currentuser,
-            "username": currentusername,
+            "check": currentuser,
+            "username": username,
             "log": greeting,
-            "images": images
+
+            "image": photo
         }
 
-        template = jinja_environment.get_template('templates/index.html')
+        template = jinja_environment.get_template('templates/home.html')
         self.response.write(template.render(template_values))
 
 
 class UploadHandler(blobstore_handlers.BlobstoreUploadHandler):
     def post(self):
         upload = self.get_uploads()[0]
-        image = Image(user=users.get_current_user().user_id(), blob_key=upload.key())
-        image.tags = []
-        image.put()
+        photo = Photo(user=users.get_current_user().user_id(), blob_key=upload.key())
+        photo.tags = []
+        photo.put()
         self.redirect('/')
 
 
 class ServeHandler(blobstore_handlers.BlobstoreDownloadHandler):
     def get(self, resource):
         resource = str(urllib.unquote(resource))
-        blob_info = blobstore.BlobInfo.get(resource)
-        self.response.headers["Content-Type"] = "image/png"
-        self.response.headers.add_header("Max-Age", "604800")
+        img = images.Image(blob_key=resource)
+        img.resize(width=500, height=500)
+        img.im_feeling_lucky()
+        thumbnail = img.execute_transforms(output_encoding=images.JPEG)
 
-        self.send_blob(blob_info, save_as=True)
+        self.response.headers['Content-Type'] = 'image/jpeg'
+        self.response.out.write(thumbnail)
+        return
 
+
+class ThumbHandler(webapp2.RequestHandler):
+    def get(self, resource):
+        resource = str(urllib.unquote(resource))
+        img = images.Image(blob_key=resource)
+        img.resize(width=200, height=200)
+        img.im_feeling_lucky()
+        thumbnail = img.execute_transforms(output_encoding=images.JPEG)
+
+        self.response.headers['Content-Type'] = 'image/jpeg'
+        self.response.out.write(thumbnail)
+        return
 
 class UserHandler(webapp2.RequestHandler):
     def get(self, resource):
         currentuser = users.get_current_user()
-        currentusername = User().getcurrentuser()
+
+        username = User().getcurrentuser()
         upload_url = blobstore.create_upload_url('/upload')
         resource = str(urllib.unquote(resource))
         qry = User.query(User.index == resource.lower())
         results = qry.fetch()
+        userid = None
+        for user in results:
+            userid = user.userid
+
+        imgqry = Photo.query(userid == Photo.user)
+        photo = imgqry.fetch()
+
+        if currentuser:
+            greeting = "<a href='%s'>Log out</a>" % users.create_logout_url('/')
+            checkid = currentuser.user_id()
+
+        else:
+            greeting = "<a href='%s'>Log In </a>" % users.create_login_url('/')
+            checkid = None
 
         template_values = {
             "upload_url": upload_url,
-            "currentuser": currentuser,
-            "username": currentusername,
-            "user": results
+            "check": currentuser,
+            "username": username,
+            "log": greeting,
+
+            "checkid": checkid,
+            "userid": userid,
+            "user": results,
+            "image": photo
         }
-
-        if results:
-            status = "User Found"
-            self.response.write(status)
-
-        else:
-            status = "User Not Found"
-            self.response.write(status)
 
         template = jinja_environment.get_template('templates/user.html')
         self.response.write(template.render(template_values))
+
+    def post(self, resource):
+        currentuser = users.get_current_user().user_id()
+        name = cgi.escape(self.request.get('name'))
+        current = User.get_by_id(currentuser)
+        current.name = name
+        current.index = name.lower()
+        current.put()
+        self.redirect('/%s' % name)
+
+
+
 
 
 class CaptureHandler(webapp2.RequestHandler):
     def get(self):
         currentuser = users.get_current_user()
-        currentusername = User().getcurrentuser()
+        username = User().getcurrentuser()
         upload_url = blobstore.create_upload_url('/upload')
+
+        if currentuser:
+            greeting = "<a href='%s'>Log out</a>" % users.create_logout_url('/')
+
+        else:
+            greeting = "<a href='%s'>Log In </a>" % users.create_login_url('/')
 
         template_values = {
             "upload_url": upload_url,
-            "currentuser": currentuser,
-            "username": currentusername
+            "check": currentuser,
+            "username": username,
+            "log": greeting,
         }
 
         if currentuser:
             template = jinja_environment.get_template('templates/capture.html')
             self.response.write(template.render(template_values))
-
         else:
             self.redirect(users.create_login_url('/'))
 
@@ -158,6 +207,7 @@ app = webapp2.WSGIApplication([
     ('/', HomePage),
     ('/upload', UploadHandler),
     ('/serve/([^/]+)?', ServeHandler),
+    ('/thumb/([^/]+)?', ThumbHandler),
     ('/capture', CaptureHandler),
-    ('/([^/]+)?', UserHandler)],
-    debug=True)
+    ('/([^/]+)?', UserHandler),
+    ], debug=True)

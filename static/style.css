@@ -13,11 +13,13 @@
     margin-top: 8px;
 }
 #content img{
-    width: 98%;
+
     box-shadow:0 15px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
     margin-bottom: 10px;
 }
-
+.indeximg{
+    width: 100%;
+}
 #imgHide{
     visibility: collapse;
 }

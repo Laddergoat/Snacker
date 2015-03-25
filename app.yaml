@@ -8,7 +8,7 @@
 # id.
 
 application: testafeeney
-version: 1
+version: alpha-301
 runtime: python27
 api_version: 1
 threadsafe: yes
@@ -66,4 +66,6 @@ libraries:
 - name: webapp2
   version: latest
 - name: jinja2
+  version: latest
+- name: PIL
   version: latest

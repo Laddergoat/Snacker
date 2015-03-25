@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
-
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-
-    <title></title>
-
+    <link rel="icon" href="/static/images/favicon.png" type="image/x-icon" />
+    <title>{% block title %}{% endblock %}</title>
 
     <script src="/static/jquery-1.11.2.js"></script>
     <script src="/static/bootstrap/js/bootstrap.min.js"></script>
@@ -14,9 +11,7 @@
     <link href="/static/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
     <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
-    <link href="/static/capture.css" rel="stylesheet" type="text/css">
     <link href="/static/style.css" rel="stylesheet" type="text/css">
-
 </head>
 
 <body>
@@ -52,8 +47,6 @@
             </div>
         </div>
     </nav>
-
-    <div id="content">
     {% block mainCont %}
 
     {% endblock %}
@@ -61,14 +54,14 @@
     </div>
 
     <nav class="navbar navbar-default navbar-fixed-bottom">
-        {% if currentuser%}
+        {% if check %}
         <div role="group" class="btn-group-lg btn-group-justified">
             <a href="/" class="btn btn-lg" role="button"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a>
-            <a href="/capture" class="btn btn-lg" role="button"><span class="glyphicon glyphicon-camera" aria-hidden="true"></span></a>
+            <a href="/capture" class="btn btn-lg" role="button"><img src="/static/images/camera.png" alt="capture" height="50px"></a>
             <a id="imgUpload" class="btn btn-lg" role="button" type="file">
                 <span class="glyphicon glyphicon-picture" aria-hidden="true"></span>
             </a>
-            <a href="{{username}}" class="btn btn-lg" role="button"><span class="glyphicon glyphicon-user" aria-hidden="true"</span></a>
+            <a href="{{username}}" class="btn btn-lg" role="button"><span class="glyphicon glyphicon-user" aria-hidden="true"></a>
         </div>
         {% endif %}
     </nav>

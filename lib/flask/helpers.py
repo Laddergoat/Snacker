@@ -831,7 +831,7 @@ class _PackageBoundObject(object):
                 /style.css
             /templates
                 /layout.html
-                /index.html
+                /home.html
 
         If you want to open the `schema.sql` file you would do the
         following::
