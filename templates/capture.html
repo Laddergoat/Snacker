@@ -1,14 +1,52 @@
 {% extends "templates/base.html" %}
+
 {%  block mainCont %}
-    <script src="/static/capture.js"></script>
-    <h1>Camera capture test</h1>
-    <div class="camera">
-        <video id="video">Video stream not available.</video>
-        <button id="startbutton">Take photo</button>
+
+
+{# IMAGE CROPPER #1
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.11/angular.min.js"></script>
+<link rel="stylesheet" href="/static/image-crop-styles.css" type="text/css">
+<script src="/static/image-crop.js"></script>
+<script>
+    var app = angular.module('myApp', []);
+
+    app.config(['$interpolateProvider', function($interpolateProvider) {
+        $interpolateProvider.startSymbol('{[');
+        $interpolateProvider.endSymbol(']}');
+    }]);
+
+    var myApp = null;
+    (function() {
+        angular.module('myApp', ['ImageCropper'])
+                .controller('MainController', function($scope) {
+                    console.log('MainController');
+                    $scope.imageCropResult = null;
+                    $scope.showImageCropper = false;
+                    $scope.$watch('imageCropResult', function(newVal) {
+                        if (newVal) {
+                            console.log('imageCropResult', newVal);
+                        }
+                    });
+                });
+    })();
+    </script>
+
+<h2>Image In</h2>
+<div ng-controller="MainController">
+    <image-crop
+            data-width="300"
+            data-height="300"
+            data-shape="circle"
+            data-step="imageCropStep"
+            data-result="imageCropResult"
+            ng-show="showImageCropper"
+            ></image-crop>
+    <h2>Image Out</h2>
+    <div ng-show="imageCropResult">
+        {% raw %} <img ng-src="{{ imageCropResult }}" alt="The Cropped Image">
+        <textarea class="result-image">{{ imageCropResult }}</textarea>{% endraw %}
     </div>
-    <canvas id="canvas">
-    </canvas>
-    <div class="output">
-        <img id="photo" alt="The screen capture will appear in this box.">
-    </div>
+
+    <p ng-hide="imageCropResult">Not cropped yet</p>
+</div>#}
 {% endblock %}
